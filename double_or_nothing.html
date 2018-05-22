@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Double or nothing.</title>
+</head>
+<body>
+	<p>You start with $10.  You will be placing a double-or-nothing each hand.  The casino can only pay out $2,000,000 so will not take bets above $1,000,000.</p>
+
+
+	<script>
+		//COIN FLIP
+		function getRandomInt(max) {
+  			return Math.floor(Math.random() * Math.floor(max));
+		}
+
+		let yourPot = 10;
+		const casinoMax = 10000;
+		let heads = tails = 0;
+		for (let i = 1; i < casinoMax; i++) {
+			flip = getRandomInt(2);
+			//console.log(flip);
+			if (flip == 1) {
+				heads += 1;
+			} else {
+				tails += 1;
+			}
+			console.log(`Heads:  {heads}, Tails: {tails});
+		}
+		console.warn("You beat the house!");
+	</script>
+
+
+
+</body>
+</html>

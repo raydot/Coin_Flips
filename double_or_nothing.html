@@ -9,7 +9,7 @@
   		crossorigin="anonymous"></script>
 </head>
 <body>
-	<p>You start with $10.  You win if the coin flip comes up heads.  You will be placing a double-or-nothing bet each hand.  The casino can only pay out $2,000,000 so will not take bets above $1,000,000.</p>
+	<p>You start with $10.  You win if the coin flip comes up heads.  You will be placing a double-or-nothing bet each hand.</p>
 	<p>
 		Coin tosses<br>
 		No. of Heads: <span id="numHeads">0</span> No. of Tails: <span id="numTails">0</span>
@@ -26,27 +26,35 @@
   			return Math.floor(Math.random() * Math.floor(max));
 		}
 
-		let	yourPot = 10, 
+		let	userPot = 0,
+			casinoPot = 0, 
+			currentBet = 10,
 			heads = 0, 
 			tails = 0,
-			flip = 1; 
+			outcome = 0; 	//whether the player has one or lost 
 
 		const casinoMax = 10000;
 		
-		for (let i = 1; i < casinoMax; i++) {
-			
-			(flip == getRandomInt(2)) ? heads += 1 : tails += 1;
-
-			// If the user wins, the casino pays
-
-			// If the casino wins, the user bets double-or-nothing
-			
-
+		for (let i = 0; i < casinoMax; i++) {
+			 
+			if (getRandomInt(2)) {
+				heads += 1;
+				currentBet *= 2;
+				userPot -= currentBet;
+			} else {
+				tails += 1;
+				currentBet = 10;
+				userPot -= 10;
+				casinoPot += 10;
+			}
 
 			//	update the DOM
 			$("#numHeads").text(heads);
 			$("#numTails").text(tails); 
-			
+			$("#yourWinnings").text(userPot.toLocaleString('us-us', { style: 'currency', currency: 'USD' }));
+			$("#casinoWinnings").text(casinoPot.toLocaleString('us-us', { style: 'currency', currency: 'USD' }));
+
+			//number.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })			
 
 
 		}

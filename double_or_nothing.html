@@ -9,7 +9,7 @@
   		crossorigin="anonymous"></script>
 </head>
 <body>
-	<p>You start with $10.  You win if the coin flip comes up heads.  You will be placing a double-or-nothing bet each hand.</p>
+	<p>You each hand with $1.  You win if the coin flip comes up heads.  If you win, you collect.  If you don't, you place a double-or-nothing bet each hand.</p>
 	<p>
 		Coin tosses<br>
 		No. of Heads: <span id="numHeads">0</span> No. of Tails: <span id="numTails">0</span>
@@ -28,24 +28,25 @@
 
 		let	userPot = 0,
 			casinoPot = 0, 
-			currentBet = 10,
+			currentBet = 1,
 			heads = 0, 
 			tails = 0,
-			outcome = 0; 	//whether the player has one or lost 
+			streak = 0;
 
-		const casinoMax = 10000;
+		const casinoMax = 100;
 		
 		for (let i = 0; i < casinoMax; i++) {
 			 
 			if (getRandomInt(2)) {
+				// user wins!
 				heads += 1;
-				currentBet *= 2;
-				userPot -= currentBet;
+				userPot += currentBet;
+				casinoPot +=1;
+				currentBet = 1;
 			} else {
+				//house wins!
 				tails += 1;
-				currentBet = 10;
-				userPot -= 10;
-				casinoPot += 10;
+				currentBet *= 2;
 			}
 
 			//	update the DOM
@@ -54,11 +55,9 @@
 			$("#yourWinnings").text(userPot.toLocaleString('us-us', { style: 'currency', currency: 'USD' }));
 			$("#casinoWinnings").text(casinoPot.toLocaleString('us-us', { style: 'currency', currency: 'USD' }));
 
-			//number.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })			
 
 
 		}
-		//console.warn("You beat the house!");
 
 
 	</script>
